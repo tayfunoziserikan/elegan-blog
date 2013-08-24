@@ -3,4 +3,6 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :pictures, as: :imageable
   has_and_belongs_to_many :tags
+
+  scope :last_five, -> { last(5) }
 end

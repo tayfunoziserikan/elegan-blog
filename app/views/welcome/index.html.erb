@@ -1,0 +1,15 @@
+<h1>Elegan Blog</h1>
+
+<div class="left liquid">
+  <h3>Last Posts</h3>
+
+  <ul>
+  <% @last_five_posts.each do |post| %>
+    <li><%= link_to post.title, '#' %></li>
+  <% end%>
+  </ul>
+</div>
+
+<div class="right liquid">
+  <h3>Last Comments</h3>
+</div>
