@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130822173012) do
+ActiveRecord::Schema.define(version: 20130824071852) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -27,7 +27,10 @@ ActiveRecord::Schema.define(version: 20130822173012) do
     t.boolean  "banned"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "post_id"
   end
+
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
 
   create_table "pictures", force: true do |t|
     t.string   "title"
@@ -46,7 +49,18 @@ ActiveRecord::Schema.define(version: 20130822173012) do
     t.text     "short_body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
   end
+
+  add_index "posts", ["category_id"], name: "index_posts_on_category_id"
+
+  create_table "posts_tags", id: false, force: true do |t|
+    t.integer "post_id", null: false
+    t.integer "tag_id",  null: false
+  end
+
+  add_index "posts_tags", ["post_id", "tag_id"], name: "index_posts_tags_on_post_id_and_tag_id"
+  add_index "posts_tags", ["tag_id", "post_id"], name: "index_posts_tags_on_tag_id_and_post_id"
 
   create_table "tags", force: true do |t|
     t.string   "name"
